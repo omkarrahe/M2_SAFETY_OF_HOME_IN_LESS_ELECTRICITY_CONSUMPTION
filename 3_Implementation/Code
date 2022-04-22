@@ -1,0 +1,57 @@
+/*
+
+ * main.c
+ 
+ *
+ 
+ * Created: 4/21/2022 5:49:13 PM
+ 
+ *  Author: Om 
+ 
+ */ 
+
+//#define F_CPU 16000000UL
+
+#include <avr/io.h>
+
+int main(void)
+
+{
+	
+	//I have created this program for 5 Door Sensors
+	
+	DDRB=DDRB&0b11111101;//This is because I have taken pin B1 as input pin thats why in 2nd pin there is 0
+	
+	DDRB=DDRB&0b11111110;//This is because I have taken pin B2 as input pin thats why in 1st pin there is 0
+	
+	DDRB=DDRB&0b11111011;//This is because I have taken pin B3 as input pin thats why in 3rd pin there is 0
+	
+	DDRB=DDRB&0b11110111;//This is because I have taken pin B4 as input pin thats why in 4th pin there is 0
+	
+	DDRB=DDRB&0b11101111;//This is because I have taken pin B5 as input pin thats why in 5th pin there is 0
+	
+	DDRC=DDRC|0b01000000;//This is because I have taken pin C6 as output pin thats why in 6th pin there is 1
+	
+	while(1)
+	
+	{
+		if(PINB & (0b00000010|0b00000001|0b00000100|0b00001000|0b00010000))
+		
+		//All 1st to 5th pin is given here I have taken or operation of all these because if any place output is 1 then our led glow or our
+		//Camera will operate I have placed Potentiometer in place of Camera.
+		
+		PORTC=PORTC|0b01000000;
+		
+		//Means If above condition is true than Our pin C6 detect high or led glow
+		
+		else
+		
+		PORTC=PORTC&0b10111111;
+		
+		//Means If above condition is true than Our pin C6 detect low and our led not glow 
+		
+	}
+	
+	return 0;
+	
+}
